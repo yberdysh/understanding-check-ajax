@@ -12,5 +12,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "volleyball": "^1.4.1"
+  },
+  "devDependencies": {
+    "webpack": "^3.10.0"
   }
 }
