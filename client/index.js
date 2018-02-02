@@ -14,6 +14,44 @@ Your Tasks:
 */
 
 // ALL YOUR CODE HERE
+if (location.hash.length) {
+  // This is repetitive!
+  // Is there a way to combine these? ;)
+  // Can I dynamically decide what url to pass to fetch?
+
+  const hash = location.hash.slice(1);
+  if (hash === 'dogs') {
+    fetch('/dogs')
+      .then(res => res.json())
+      .then(renderView)
+      .catch(console.error);
+  }
+
+  if (hash === 'cats') {
+    fetch('/cats')
+      .then(res => res.json())
+      .then(renderView)
+      .catch(console.error);
+  }
+
+  if (hash === 'dragons') {
+    fetch('/dragons')
+      .then(res => res.json())
+      .then(renderView)
+      .catch(console.error);
+  }
+}
+
+['dragon', 'cat', 'dog'].forEach(animal => {
+  const button = document.getElementById(`${animal}-button`);
+  button.addEventListener('click', () => {
+    fetch(`/${animal}s`)
+      .then(res => res.json())
+      .then(renderView)
+      .then(() => location.hash = animal)
+      .catch(console.error);
+  })
+})
 
 
 //This function takes an array of animal objects, and renders them on the page.
