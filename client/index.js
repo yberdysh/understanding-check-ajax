@@ -2,7 +2,11 @@
 /*
 Your Tasks:
 
-1. If there is a front end route, render the appropriate data. We have routes on the backend that will send us array of data containing the appropriate cute animals! If there is a front end route, we should send a GET request using AJAX to request those data from the Server. Then we can call `renderView` to render the data to the page.
+1. If there is a front end route, render the appropriate data.
+We have routes on the backend that will send us array of data containing
+the appropriate cute animals! If there is a front end route, we should send a
+GET request using AJAX to request those data from the Server. Then we can
+call `renderView` to render the data to the page.
    a) /#dogs, render all the dogs!
    b) /#cats, render all the cats!
    c) /#dragons, render all the dragons!
@@ -14,6 +18,57 @@ Your Tasks:
 */
 
 // ALL YOUR CODE HERE
+import axios from 'axios';
+
+console.log('my JS is running');
+
+if (location.hash.length) {
+  const frontEndHash = location.hash.slice(1);
+  //'#dogs', '#dragons'...
+
+  //route is 'dogs', 'dragons', or 'cats'
+
+  axios.get(`/${frontEndHash}`)
+  .then(res => renderView(res.data))
+  .catch(console.error)
+
+
+  // fetch(`/${frontEndHash}`)
+  //   .then(response => response.json())
+  //   .then(data => renderView(data))
+  //   .catch(console.error);
+
+}
+
+['dragons', 'cats', 'dogs'].forEach(animal => {
+  const button = document.getElementById(animal);
+  button.addEventListener('click', () => {
+    fetch(animal)
+      .then(res => res.json())
+      .then(renderView)
+      .then(() => {
+        location.hash = animal;
+      })
+      .catch(console.error);
+  })
+})
+
+//the non-refactored version
+// ['dragon', 'cat', 'dog'].forEach(animal => {
+//   const button = document.getElementById(`${animal}-button`);
+//   button.addEventListener('click', () => {
+//     fetch(`/${animal}s`)
+//       .then(res => res.json())
+//       .then(renderView)
+//       .then(() => {
+//         location.hash = `${animal}s`;
+//       })
+//       .catch(console.error);
+//   })
+// })
+
+
+;
 
 
 //This function takes an array of animal objects, and renders them on the page.
